@@ -34,8 +34,7 @@ const app = Vue.createApp({
       this.items.splice(index, 1);
     },
     removeListItemFromFavourites(item) {
-
-        this.favourites.splice(this.favourites.findIndex(favourite => favourite.name === item.name),1);
+      this.favourites.splice(this.favourites.findIndex(favourite => favourite.name === item.name), 1);
     },
     addToFavourites(item) {
       var exists = this.favourites.some(function(favourite) {

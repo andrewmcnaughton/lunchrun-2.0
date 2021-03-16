@@ -31,6 +31,7 @@ ul.favourites li {
   border-radius: 18px;
   cursor: pointer;
   transition: all 80ms linear;
+  text-transform: capitalize;
 }
 ul.favourites li.dummy {
   padding: 5px 12px 5px 12px;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>instance.Lunchrun</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      
+    </header>
+    <section id="shopping">
+      <h1><strong>instance.</strong>lunchrun</h1>
+      <p class="label fav">Favourites: </p>
+      <ul class="favourites" >
+        <li v-if="!favourites.length" class="dummy">none</li>
+        <transition-group name="favlist">
+          <li v-for="(item, index) in favourites" :key="item.name" @click.self="addFavouriteToList(item)">
+            {{ item.name }} <button @click="removeFromFavourites(index)">✕</button>
+          </li>
+        </transition-group>       
+      </ul>
+      <div class="row">
+        <transition-group name="itemlist">
+          <div class="item" v-for="(item, index) in items" :key="item.name">
+            <p>{{ item.name }}</p>
+            <button class="add-fav">
+              <svg v-if="checkIfFav(item)" @click="removeListItemFromFavourites(item)" class="isfav" height="25" viewBox="0 0 30 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.79392 13.1058L3.78344 13.0944L3.77249 13.0834C2.42678 11.7315 1.6875 9.94076 1.6875 8.03312C1.6875 6.11893 2.43123 4.32352 3.78491 2.97013C6.57739 0.178777 11.1195 0.178885 13.9109 2.97002C14.0896 3.1487 14.259 3.33651 14.4173 3.5319L15 4.25089L15.5827 3.5319C15.7412 3.33629 15.9107 3.14809 16.0893 2.96914C18.8808 0.178287 23.4236 0.17885 26.215 2.96971C27.5684 4.32315 28.3125 6.11897 28.3125 8.03312C28.3125 9.94694 27.5685 11.7424 26.215 13.0956L26.2034 13.1072L26.1923 13.1193C21.0436 18.7399 18.2286 21.5266 16.6617 22.9042C15.8745 23.5963 15.4318 23.9062 15.187 24.0429C15.0829 24.101 15.0302 24.1189 15.0149 24.1234C15.0116 24.1234 15.0068 24.1234 15 24.1234C14.9933 24.1234 14.9885 24.1234 14.9851 24.1234C14.9697 24.1188 14.917 24.1009 14.8132 24.0429C14.5683 23.9061 14.1253 23.5959 13.3374 22.903C11.7689 21.5237 8.95042 18.7336 3.79392 13.1058Z" stroke="#F17A4F" stroke-width="2"/>
+              </svg>
+              <svg v-else width="30" @click="addToFavourites(item)" height="25" viewBox="0 0 30 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.79392 13.1058L3.78344 13.0944L3.77249 13.0834C2.42678 11.7315 1.6875 9.94076 1.6875 8.03312C1.6875 6.11893 2.43123 4.32352 3.78491 2.97013C6.57739 0.178777 11.1195 0.178885 13.9109 2.97002C14.0896 3.1487 14.259 3.33651 14.4173 3.5319L15 4.25089L15.5827 3.5319C15.7412 3.33629 15.9107 3.14809 16.0893 2.96914C18.8808 0.178287 23.4236 0.17885 26.215 2.96971C27.5684 4.32315 28.3125 6.11897 28.3125 8.03312C28.3125 9.94694 27.5685 11.7424 26.215 13.0956L26.2034 13.1072L26.1923 13.1193C21.0436 18.7399 18.2286 21.5266 16.6617 22.9042C15.8745 23.5963 15.4318 23.9062 15.187 24.0429C15.0829 24.101 15.0302 24.1189 15.0149 24.1234C15.0116 24.1234 15.0068 24.1234 15 24.1234C14.9933 24.1234 14.9885 24.1234 14.9851 24.1234C14.9697 24.1188 14.917 24.1009 14.8132 24.0429C14.5683 23.9061 14.1253 23.5959 13.3374 22.903C11.7689 21.5237 8.95042 18.7336 3.79392 13.1058Z" stroke="#F17A4F" stroke-width="2"/>
+              </svg>
+            </button>
+            <button @click="removeListItem(index)">✕</button>
+          </div>
+        </transition-group>
+      </div>
+      <p class="label">Add to list</p>
+      <input @keyup.enter="addListItem" type="text" v-model="inputVal" placeholder="Item Name..." />
+    </section>
+  </body>
+</html>

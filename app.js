@@ -1,4 +1,4 @@
-const app = Vue.createApp({
+const lunchrun = Vue.createApp({
   data() {
     return {
       inputVal: "",

@@ -1,62 +1,45 @@
 const app = Vue.createApp({
   data() {
     return {
-      inputVal: '',
+      inputVal: "",
       favourites: [
-        { name: 'Italian Chicken' },
-        { name: 'Kip' },
-        { name: 'Bread' }
+        { name: "Smeerkaas" }, 
+        { name: "Kip" }
       ],
       items: [
-        { name: 'Italian Chicken' },
-        { name: 'Kip' },
-        { name: 'Bread' },
-        { name: 'Grillworst' },
-        { name: 'Smeerkaas' },
-        { name: 'Sla' }
-      ]
-    }
+        { name: "Siracha" }, 
+        { name: "Kip" }
+      ],
+    };
   },
   methods: {
-    addListItem(event) {
-      // Stop empty submits
+    addItem(event) {
       if(event.target.value === '') {
         return
       }
-      // add to items
-      this.items.push({ name: event.target.value });
-
-      // reset input
-      this.inputVal = '';
-
+      this.items.push({ name: this.inputVal });
+      this.inputVal = "";
     },
-    removeListItem(index) {
+    removeItem(index) {
       this.items.splice(index, 1);
     },
-    removeListItemFromFavourites(item) {
-      this.favourites.splice(this.favourites.findIndex(favourite => favourite.name === item.name), 1);
-    },
-    addToFavourites(item) {
-      var exists = this.favourites.some(function(favourite) {
-        return favourite.name === item.name;
-      });
-      
-      if (!exists) {
-        this.favourites.push({ name: item.name });
-      }
-    },
-    removeFromFavourites(index) {
+    removeFavourite(index) {
       this.favourites.splice(index, 1);
-    },    
+    },
+    removeItemFromFavourites(item) {
+      this.favourites.splice(this.favourites.findIndex(favourite => item.name === favourite.name), 1);
+    },
     addFavouriteToList(item) {
       this.items.push({ name: item.name });
     },
-    checkIfFav(item) {
-      return this.favourites.some(function(favourite) {
-        return item.name === favourite.name;
-      });
-    }    
-  }
+    checkIfFavourite(item) {
+      return this.favourites.some(favourite => item.name === favourite.name);
+    },
+    addToFavourites(item) {
+      this.favourites.push({ name: item.name });
+    },
+
+  },
 });
 
-app.mount('#shopping');
+app.mount("#shopping");
